@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app_using_flutter/models/article_model.dart';
 import 'package:news_app_using_flutter/models/catagory_model.dart';
 import 'package:news_app_using_flutter/models/slider_model.dart';
+import 'package:news_app_using_flutter/services/article_news.dart';
 import 'package:news_app_using_flutter/services/catagory_data.dart';
 import 'package:news_app_using_flutter/services/slider_data.dart';
 import 'package:news_app_using_flutter/utilities/Widgets/buid_indicator.dart';
@@ -22,12 +24,16 @@ class _HomeScreenState extends State<HomeScreen> {
   List<SliderModel> sliders = [];
   // this list store data of breaking news sliders.
 
-  int _selectedIndex = 0;
+  List<ArticleModel> articlesNewsList = [];
+
+  int _selectedIndex =
+      0; // this index work for turning indicator down the carousel.
 
   @override
   void initState() {
     categries = getCatagories();
     sliders = getSliders();
+    articlesNewsList = ArticleNews.news;
     super.initState();
   }
 
