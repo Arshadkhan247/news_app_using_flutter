@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_using_flutter/utilities/Style/text_style.dart';
 
+// ignore: must_be_immutable
 class BreakingAndTrandingRow extends StatelessWidget {
   BreakingAndTrandingRow({super.key, required this.name});
 
