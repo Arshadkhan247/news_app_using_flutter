@@ -1,11 +1,10 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:news_app_using_flutter/models/article_model.dart';
 import 'package:http/http.dart' as http;
 
  class ArticleNews {
- static List<ArticleModel> news = [];
+  List<ArticleModel> actualNewsList = [];
 
   Future<void> getNews() async {
     String url =
@@ -29,7 +28,7 @@ import 'package:http/http.dart' as http;
             author: Element['author']
 
           );
-          news.add(articleModel);
+          actualNewsList.add(articleModel);
         }
       });
     }
