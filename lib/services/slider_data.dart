@@ -1,45 +1,36 @@
+// ignore_for_file: non_constant_identifier_names
+
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 import 'package:news_app_using_flutter/models/slider_model.dart';
 
-List<SliderModel> getSliders() {
-  List<SliderModel> slider = [];
+class SliderNews {
+  List<SliderModel> actualNewsListOfSliders = [];
 
-  // this file is used to display the name and image of the different categories in Categories Section.
+  Future<void> getNews() async {
+    String url =
+        'https://newsapi.org/v2/everything?q=tesla&from=2023-10-20&sortBy=publishedAt&apiKey=8ffb347859684bbdb8d6d67d570f8b44';
 
-  //  1. first we create instance of the model to access their attributes.
-  //  2. then we using the the name and image property to make a single record.
-  //  3. add that record into our list called "catagory"
-  //  4. this steps are repeat for each of category.
-  //  5. at the end we return the list of different categries by  " return category " .
-
-  SliderModel sliderModal = SliderModel();
-  sliderModal.sliderName =
-      '"Global markets rally as positive economic indicators drive investor confidence to new heights."';
-  sliderModal.sliderImage = 'assets/business.jpeg';
-  slider.add(sliderModal);
-
-  sliderModal = SliderModel();
-  sliderModal.sliderName =
-      'A-list celebrity duo sparks romance rumors with cozy dinner date in the heart of Hollywood!"';
-  sliderModal.sliderImage = 'assets/entertainment.jpg';
-  slider.add(sliderModal);
-
-  sliderModal = SliderModel();
-  sliderModal.sliderName =
-      '"Global leaders convene to address pressing issues at the annual summit."';
-  sliderModal.sliderImage = 'assets/general.jpg';
-  slider.add(sliderModal);
-
-  sliderModal = SliderModel();
-  sliderModal.sliderName =
-      '"New study reveals that regular exercise can significantly reduce the risk of chronic diseases."';
-  sliderModal.sliderImage = 'assets/health.jpg';
-  slider.add(sliderModal);
-
-  sliderModal = SliderModel();
-  sliderModal.sliderName =
-      '"Defending champions secure thrilling victory in nail-biting overtime, clinching a spot in the championship finals."';
-  sliderModal.sliderImage = 'assets/sport.jpg';
-  slider.add(sliderModal);
-
-  return slider;
+    var response = await http.get(
+      Uri.parse(
+        url,
+      ),
+    );
+    var jsonData = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      jsonData['articles'].forEach((Element) {
+        if (Element['urlToImage'] != null && Element['description'] != null) {
+          SliderModel sliderModel = SliderModel(
+              title: Element['title'],
+              description: Element['description'],
+              urlToImage: Element['urlToImage'],
+              url: Element['url'],
+              content: Element['content'],
+              author: Element['author']);
+          actualNewsListOfSliders.add(sliderModel);
+        }
+      });
+    }
+  }
 }

@@ -30,11 +30,9 @@ class _ArticleWebViewState extends State<ArticleWebView> {
               ),
             ],
           )),
-      body: Container(
-        child: WebView(
-          initialUrl: widget.blogUrl,
-          javascriptMode: JavascriptMode.unrestricted,
-        ),
+      body: WebView(
+        initialUrl: widget.blogUrl,
+        javascriptMode: JavascriptMode.unrestricted,
       ),
     );
   }

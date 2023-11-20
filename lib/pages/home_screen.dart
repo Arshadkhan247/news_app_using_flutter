@@ -13,37 +13,28 @@ import 'package:news_app_using_flutter/utilities/comman%20Widgets/blog_tile.dart
 import 'package:news_app_using_flutter/utilities/comman%20Widgets/breaking_tranding_row.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<CategoryModel> categries = [];
-  // this list store data of Differents categories.
+  List<CategoryModel> categories = [];
   List<SliderModel> sliders = [];
-  // this list store data of breaking news sliders.
-
   List<ArticleModel> articlesNewsList = [];
-
-  // taking two bool variables to help in loading of the page initially.
   bool _loading = true, loading2 = true;
-
-  int _selectedIndex =
-      0; // this index work for turning indicator down the carousel.
+  int _selectedIndex = 0;
 
   @override
   void initState() {
-    categries = getCatagories();
-    sliders = getSliders();
-    getnews();
+    categories = getCatagories();
+    getSlidersNews();
+    getNews();
     super.initState();
   }
 
-  // creating a function for getting all the news from API that has been fetch in ArticlesNews Class.
-
-  getnews() async {
+  getNews() async {
     ArticleNews newsVariable = ArticleNews();
     await newsVariable.getNews();
     articlesNewsList = newsVariable.actualNewsList;
@@ -52,8 +43,18 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  getSlidersNews() async {
+    SliderNews secVariable = SliderNews();
+    await secVariable.getNews();
+    sliders = secVariable.actualNewsListOfSliders;
+    setState(() {
+      _loading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(sliders.length);
     return Scaffold(
       body: _loading
           ? const Center(child: CircularProgressIndicator())
@@ -94,11 +95,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        itemCount: categries.length,
+                        itemCount: categories.length,
                         itemBuilder: (context, index) {
                           return CategorySection(
-                            categoryImage: categries[index].catagoryImage,
-                            categoryName: categries[index].catagoryName,
+                            categoryImage: categories[index].catagoryImage,
+                            categoryName: categories[index].catagoryName,
                           );
                         },
                       ),
@@ -110,12 +111,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(height: 20),
                     CarouselSlider.builder(
-                      itemCount: sliders.length,
+                      itemCount: 5,
                       itemBuilder: (context, index, realIndex) {
-                        String? image = sliders[index].sliderImage;
-                        String? name = sliders[index].sliderName;
+                        String? image = sliders[index].urlToImage;
+                        String? name = sliders[index].description;
                         return BuildImage(
-                            image: image!, name: name!, index: index);
+                          image: image!,
+                          name: name!,
+                          index: index,
+                        );
                       },
                       options: CarouselOptions(
                         autoPlay: true,
@@ -132,16 +136,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(height: 30),
                     Center(
                       child: BuildIndicator(
-                        selectedIndex: _selectedIndex,
-                        pagesCounts: sliders.length,
-                      ),
+                          selectedIndex: _selectedIndex, pagesCounts: 5),
                     ),
                     const SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: BreakingAndTrandingRow(name: 'Tranding News!'),
                     ),
-                    const SizedBox(height: 10),
                     ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
