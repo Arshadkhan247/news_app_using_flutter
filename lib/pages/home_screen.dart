@@ -54,7 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(sliders.length);
     return Scaffold(
       body: _loading
           ? const Center(child: CircularProgressIndicator())
