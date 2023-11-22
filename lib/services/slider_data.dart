@@ -10,7 +10,7 @@ class SliderNews {
 
   Future<void> getNews() async {
     String url =
-        'https://newsapi.org/v2/everything?q=tesla&from=2023-10-20&sortBy=publishedAt&apiKey=8ffb347859684bbdb8d6d67d570f8b44';
+        'https://newsapi.org/v2/everything?domains=wsj.com&apiKey=8ffb347859684bbdb8d6d67d570f8b44';
 
     var response = await http.get(
       Uri.parse(
@@ -28,7 +28,9 @@ class SliderNews {
               url: Element['url'],
               content: Element['content'],
               author: Element['author']);
+
           actualNewsListOfSliders.add(sliderModel);
+          actualNewsListOfSliders.shuffle(); // this property is used to shuffle the index of the newly adding values.
         }
       });
     }

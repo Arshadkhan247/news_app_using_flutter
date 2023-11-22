@@ -4,7 +4,7 @@ import 'package:news_app_using_flutter/models/article_model.dart';
 import 'package:news_app_using_flutter/models/catagory_model.dart';
 import 'package:news_app_using_flutter/models/slider_model.dart';
 import 'package:news_app_using_flutter/services/article_news.dart';
-import 'package:news_app_using_flutter/services/catagory_data.dart';
+import 'package:news_app_using_flutter/services/category_data.dart';
 import 'package:news_app_using_flutter/services/slider_data.dart';
 import 'package:news_app_using_flutter/utilities/Widgets/buid_indicator.dart';
 import 'package:news_app_using_flutter/utilities/Widgets/build_image.dart';
@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    categories = getCatagories();
+    categories = getCategories();
     getSlidersNews();
     getNews();
     super.initState();
@@ -144,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     ListView.builder(
                       shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
+                      physics: const ClampingScrollPhysics(),
                       itemCount: articlesNewsList.length,
                       itemBuilder: (context, index) {
                         return BlogTile(
