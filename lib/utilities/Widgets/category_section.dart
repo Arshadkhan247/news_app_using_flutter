@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CategorySection extends StatelessWidget {
@@ -9,44 +10,39 @@ class CategorySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        
-      },
-      child: Container(
-        margin: const EdgeInsets.only(right: 16),
-        child: Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(6),
-              child: Image.asset(
-                categoryImage,
-                height: 70,
-                width: 120,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Container(
+    return Container(
+      margin: const EdgeInsets.only(right: 16),
+      child: Stack(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(6),
+            child: CachedNetworkImage(
+              imageUrl: categoryImage,
               height: 70,
               width: 120,
-              decoration: BoxDecoration(
-                color: Colors.black45,
-                borderRadius: BorderRadius.circular(
-                  6,
-                ),
+              fit: BoxFit.cover,
+            ),
+          ),
+          Container(
+            height: 70,
+            width: 120,
+            decoration: BoxDecoration(
+              color: Colors.black45,
+              borderRadius: BorderRadius.circular(
+                6,
               ),
-              child: Center(
-                child: Text(
-                  categoryName,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold),
-                ),
+            ),
+            child: Center(
+              child: Text(
+                categoryName,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
