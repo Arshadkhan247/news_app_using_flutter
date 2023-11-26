@@ -32,7 +32,7 @@ class _AllNewsState extends State<AllNews> {
               'News',
               style: TextStyle(
                   color: Colors.blue,
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold),
             ),
           ],

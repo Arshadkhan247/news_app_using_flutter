@@ -5,29 +5,29 @@ List<CategoryModel> getCategories() {
   CategoryModel categoryModel = CategoryModel();
 
   categoryModel.catagoryName = "Business";
-  categoryModel.catagoryImage = "images/business.jpg";
+  categoryModel.catagoryImage = "assets/business1.jpeg";
   category.add(categoryModel);
-  categoryModel =  CategoryModel();
+  categoryModel = CategoryModel();
 
   categoryModel.catagoryName = "Entertainment";
-  categoryModel.catagoryImage = "images/entertainment.jpg";
+  categoryModel.catagoryImage = "assets/entertainment.jpg";
   category.add(categoryModel);
-  categoryModel =  CategoryModel();
+  categoryModel = CategoryModel();
 
   categoryModel.catagoryName = "General";
-  categoryModel.catagoryImage = "images/general.jpg";
+  categoryModel.catagoryImage = "assets/general.jpg";
   category.add(categoryModel);
-  categoryModel =  CategoryModel();
+  categoryModel = CategoryModel();
 
   categoryModel.catagoryName = "Health";
-  categoryModel.catagoryImage = "images/health.jpg";
+  categoryModel.catagoryImage = "assets/health.jpg";
   category.add(categoryModel);
   categoryModel = CategoryModel();
 
   categoryModel.catagoryName = "Sports";
-  categoryModel.catagoryImage = "images/sport.jpg";
+  categoryModel.catagoryImage = "assets/sport.jpg";
   category.add(categoryModel);
-  categoryModel =  CategoryModel();
+  categoryModel = CategoryModel();
 
   return category;
 }

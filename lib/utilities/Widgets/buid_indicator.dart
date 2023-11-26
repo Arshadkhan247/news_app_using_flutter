@@ -17,7 +17,7 @@ class BuildIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedSmoothIndicator(
         effect: const ScrollingDotsEffect(
-          activeDotColor: Colors.black54,
+          activeDotColor: Colors.blue,
           dotHeight:
               10, // height and weight should be same if we want a round dot.
           dotWidth: 10,
