@@ -29,7 +29,7 @@ class _ArticleWebViewState extends State<ArticleWebView> {
                     TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
               ),
             ],
-          )),
+          ),),
       body: WebView(
         initialUrl: widget.blogUrl,
         javascriptMode: JavascriptMode.unrestricted,

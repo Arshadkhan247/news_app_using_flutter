@@ -15,7 +15,7 @@ import 'package:news_app_using_flutter/utilities/comman%20Widgets/tranding_row.d
 import '../utilities/Widgets/show_category.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

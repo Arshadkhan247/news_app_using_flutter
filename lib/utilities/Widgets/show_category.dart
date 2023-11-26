@@ -9,8 +9,7 @@ class ShowCategory extends StatelessWidget {
   final String categoryImage;
 
   const ShowCategory(
-      {Key? key, required this.categoryName, required this.categoryImage})
-      : super(key: key);
+      {super.key, required this.categoryName, required this.categoryImage});
 
   @override
   Widget build(BuildContext context) {
