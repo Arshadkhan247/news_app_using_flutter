@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:news_app_using_flutter/models/article_model.dart';
 import 'package:news_app_using_flutter/models/catagory_model.dart';
 import 'package:news_app_using_flutter/models/slider_model.dart';
@@ -8,9 +9,10 @@ import 'package:news_app_using_flutter/services/category_data.dart';
 import 'package:news_app_using_flutter/services/slider_data.dart';
 import 'package:news_app_using_flutter/utilities/Widgets/buid_indicator.dart';
 import 'package:news_app_using_flutter/utilities/Widgets/build_image.dart';
-import 'package:news_app_using_flutter/utilities/Widgets/category_section.dart';
 import 'package:news_app_using_flutter/utilities/comman%20Widgets/blog_tile.dart';
-import 'package:news_app_using_flutter/utilities/comman%20Widgets/breaking_tranding_row.dart';
+import 'package:news_app_using_flutter/utilities/comman%20Widgets/tranding_row.dart';
+
+import '../utilities/Widgets/show_category.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -56,12 +58,21 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _loading
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(
+              child: SizedBox(
+              height: 65,
+              width: 65,
+              child: LoadingIndicator(
+                indicatorType: Indicator.ballClipRotatePulse,
+                colors: [Colors.blue],
+              ),
+            ))
           : NestedScrollView(
               headerSliverBuilder:
                   (BuildContext context, bool innerBoxIsScrolled) {
                 return [
                   const SliverAppBar(
+                    floating: true,
                     expandedHeight: 70,
                     backgroundColor: Colors.white,
                     centerTitle: true,
@@ -96,28 +107,35 @@ class _HomeScreenState extends State<HomeScreen> {
                         scrollDirection: Axis.horizontal,
                         itemCount: categories.length,
                         itemBuilder: (context, index) {
-                          return CategorySection(
-                            categoryImage: categories[index].catagoryImage,
-                            categoryName: categories[index].catagoryName,
+                          return ShowCategory(
+                            categoryImage: categories[index].catagoryImage!,
+                            categoryName: categories[index].catagoryName!,
                           );
                         },
                       ),
                     ),
                     const SizedBox(height: 30),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: BreakingAndTrandingRow(name: 'Breaking News!'),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Breaking News!',
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          )),
                     ),
                     const SizedBox(height: 20),
                     CarouselSlider.builder(
-                      itemCount: 5,
+                      itemCount: sliders.length,
                       itemBuilder: (context, index, realIndex) {
                         String? image = sliders[index].urlToImage;
                         String? name = sliders[index].description;
+                        String? webUrl = sliders[index].url;
                         return BuildImage(
                           image: image!,
                           name: name!,
                           index: index,
+                          blogUrl: webUrl!,
                         );
                       },
                       options: CarouselOptions(
